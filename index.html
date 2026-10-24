@@ -362,7 +362,8 @@
     <p class="shield" id="shieldLine">🔒 <b>Built to order. Pay in full, pick up ready to use.</b></p>
     <button class="cta" onclick="sendOrder()">Send My Order</button>
     <button class="ghost" onclick="copyOrder()">Copy Order Details</button>
-    <p class="note" id="feeNote">A <b>$75 booking fee</b> is included in your total. It is non-refundable.</p>
+    <p class="note" id="feeNote">A <b>$75 booking fee</b> is included in your total. It is non-refundable. All sales final.</p>
+    <p class="note">Pickup: CJ will let you know when your order is ready. Shipping is available at extra cost.</p>p>
   </section>
 
   <section id="faq">
@@ -426,7 +427,7 @@ function calc(){
   $('#sAddons').textContent=a.length?a.map(x=>x.name+' +$'+x.price).join(', '):'None';
   $('#sPlan').textContent=planPrice?plan+' : $'+planPrice+'/mo':plan;
   $('#sFee').textContent='$'+fee;
-  $('#feeNote').innerHTML=isPlugin()?'Single plugin installs have <b>no booking fee</b>. $25 flat. CJ confirms the plugin is available before you pay.':'A <b>$75 booking fee</b> is included in your total. It is non-refundable.';
+  $('#feeNote').innerHTML=isPlugin()?'Single plugin installs have <b>no booking fee</b>. $25 flat. CJ confirms the plugin is available before you pay.':'A <b>$75 booking fee</b> is included in your total. It is non-refundable. All sales final.';
   $('#custNote').placeholder=isPlugin()?'Which plugin? (required)':'Anything CJ should know? (optional)';
   $('#custDaw').style.display=isPlugin()?'':'none';
   $('#shieldLine').innerHTML=isPlugin()?'🔒 <b>Nothing is paid until CJ confirms your plugin is available.</b>':'🔒 <b>Built to order. Pay in full, pick up ready to use.</b>';
