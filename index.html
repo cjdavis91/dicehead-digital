@@ -442,11 +442,11 @@ function orderText(){
   const noteText=isPlugin()?('Plugin: '+noteVal+(dawVal?' | DAW: '+dawVal:'')):(noteVal||'--');
   return `DICEHEAD DIGITAL ORDER ${orderId}\nName: ${$('#custName').value||'(not given)'}\nPhone: ${$('#custPhone').value||'(not given)'}\nFor: ${useCase}\nPlatform: ${platform}\nBuild: ${tierLabel()} : $${tierPrice}\nAdd-ons: ${a.length?a.map(x=>x.name+' +$'+x.price).join(', '):'None'}\nBooking fee: $${fee}\nSupport: ${planPrice?plan+' $'+planPrice+'/mo':'None'}\nTotal: ${$('#sTotal').textContent} (pay in full ${$('#sDep').textContent}, balance ${$('#sBal').textContent})\nNote: ${noteText}`;
 }
-async function sendOrder(){
+let orderSent=false;async function sendOrder(){if(orderSent)return;
   const name=$('#custName').value.trim(), phone=$('#custPhone').value.trim(), noteVal=$('#custNote').value.trim(), dawVal=$('#custDaw').value.trim();
   const digits=phone.replace(/\D/g,'');
   if(!name||digits.length<10){alert('Add your name and a phone number CJ can actually reach you at.');(!name?$('#custName'):$('#custPhone')).focus();return;}
-  if(isPlugin()&&!noteVal){alert('Tell CJ which plugin to install.');$('#custNote').focus();return;}
+  if(isPlugin()&&!noteVal){alert('Tell CJ which plugin to install.');$('#custNote').focus();return;}orderSent=true;document.querySelectorAll('.cta,.bar button').forEach(b=>b.disabled=true);
   const a=addonsList(), fee=isPlugin()?0:75;
   const payload={order:orderId,time:new Date().toISOString(),name,phone,useCase,platform,build:tierLabel(),buildPrice:tierPrice,addons:a.map(x=>x.name+' +$'+x.price).join(', '),bookingFee:fee,plan:planPrice?plan+' $'+planPrice+'/mo':'None',total:$('#sTotal').textContent,upfront:$('#sDep').textContent,balance:$('#sBal').textContent,note:isPlugin()?('Plugin: '+noteVal+(dawVal?' | DAW: '+dawVal:'')):$('#custNote').value};
   if(ORDER_ENDPOINT){
